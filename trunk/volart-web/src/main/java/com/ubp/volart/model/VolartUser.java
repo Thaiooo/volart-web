@@ -1,5 +1,6 @@
 package com.ubp.volart.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +18,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "T_USER")
-public class VolartUser {
+public class VolartUser implements Serializable {
+
+    /**
+     */
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,13 +40,13 @@ public class VolartUser {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "J_USER_FUND", joinColumns = @JoinColumn(name = "USER_ID", nullable = false), inverseJoinColumns = @JoinColumn(name = "FUND_ID", nullable = false))
-    private Set<UserRole> allowFunds = new HashSet<UserRole>(0);
+    private Set<Fund> allowFunds = new HashSet<Fund>(0);
 
-    public Set<UserRole> getAllowFunds() {
+    public Set<Fund> getAllowFunds() {
 	return allowFunds;
     }
 
-    public void setAllowFunds(Set<UserRole> allowFunds) {
+    public void setAllowFunds(Set<Fund> allowFunds) {
 	this.allowFunds = allowFunds;
     }
 
