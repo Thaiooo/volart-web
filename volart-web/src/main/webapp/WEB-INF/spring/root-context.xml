@@ -23,7 +23,7 @@
 	    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
 	    <property name="url" value="jdbc:mysql://localhost:3306/volart" />
 	    <property name="username" value="root" />
-	    <property name="password" value="Thaisone" />
+	    <property name="password" value="a" />
 	</bean>
 
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
