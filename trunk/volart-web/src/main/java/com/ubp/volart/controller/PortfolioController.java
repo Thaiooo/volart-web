@@ -3,8 +3,6 @@ package com.ubp.volart.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ubp.volart.vo.ptf.PortfolioVO;
 import com.ubp.volart.vo.ptf.PtfContentCellVO;
@@ -22,18 +21,19 @@ import com.ubp.volart.vo.ptf.PtfHeaderCellVO;
  * Handles requests for the application home page.
  */
 @Controller
+@SessionAttributes({ "POSITION", "PTF" })
 public class PortfolioController {
 
     private static final Logger logger = LoggerFactory.getLogger(PortfolioController.class);
 
     @RequestMapping(value = "/portfolio/{ptfName}", method = RequestMethod.GET)
-    public String portfolio(@PathVariable String ptfName, Model model, HttpSession session) {
+    public String portfolio(@PathVariable String ptfName, Model model) {
 	logger.info("Portfolio: " + ptfName);
 
 	// Definir la position dans la session
-	session.setAttribute("POSITION", "ptf");
+	model.addAttribute("POSITION", "ptf");
 	// Definir le fond selectionne dans la session
-	session.setAttribute("PTF", ptfName);
+	model.addAttribute("PTF", ptfName);
 
 	PortfolioVO ptf = new PortfolioVO();
 
