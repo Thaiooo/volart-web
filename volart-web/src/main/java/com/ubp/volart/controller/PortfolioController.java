@@ -24,79 +24,77 @@ import com.ubp.volart.vo.ptf.PtfHeaderCellVO;
 @Controller
 public class PortfolioController {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(PortfolioController.class);
+    private static final Logger logger = LoggerFactory.getLogger(PortfolioController.class);
 
-	@RequestMapping(value = "/portfolio/{ptfName}", method = RequestMethod.GET)
-	public String portfolio(@PathVariable String ptfName, Model model,
-			HttpSession session) {
-		logger.info("Portfolio: " + ptfName);
+    @RequestMapping(value = "/portfolio/{ptfName}", method = RequestMethod.GET)
+    public String portfolio(@PathVariable String ptfName, Model model, HttpSession session) {
+	logger.info("Portfolio: " + ptfName);
 
-		// Definir la position dans la session
-		session.setAttribute("POSITION", "ptf");
-		// Definir le fond selectionne dans la session
-		session.setAttribute("PTF", ptfName);
+	// Definir la position dans la session
+	session.setAttribute("POSITION", "ptf");
+	// Definir le fond selectionne dans la session
+	session.setAttribute("PTF", ptfName);
 
-		PortfolioVO ptf = new PortfolioVO();
+	PortfolioVO ptf = new PortfolioVO();
 
-		ptf.setName(ptfName);
-		ptf.setAsset("123,123.123");
-		ptf.setDate("2014/09/21");
-		ptf.setPnlD("0.00%");
-		ptf.setPnlD1("0.00%");
-		ptf.setPnlMtD("0.00%");
-		ptf.setPnlMtDD1("0.00%");
-		ptf.setDelta("0.00%");
-		ptf.setVega("0.00%");
-		ptf.setTheta("0.00%");
-		ptf.setInvPrem("0.00%");
+	ptf.setName(ptfName);
+	ptf.setAsset("123,123.123");
+	ptf.setDate("2014/09/21");
+	ptf.setPnlD("0.00%");
+	ptf.setPnlD1("0.00%");
+	ptf.setPnlMtD("0.00%");
+	ptf.setPnlMtDD1("0.00%");
+	ptf.setDelta("0.00%");
+	ptf.setVega("0.00%");
+	ptf.setTheta("0.00%");
+	ptf.setInvPrem("0.00%");
 
-		List<PtfHeaderCellVO> headerCol = createHeaderColumns();
-		ptf.setPtfHeaderCols(headerCol);
+	List<PtfHeaderCellVO> headerCol = createHeaderColumns();
+	ptf.setPtfHeaderCols(headerCol);
 
-		List<PtfContentLineVO> lines = createContentLines();
-		ptf.setPtfContent(lines);
+	List<PtfContentLineVO> lines = createContentLines();
+	ptf.setPtfContent(lines);
 
-		model.addAttribute("ptf", ptf);
-		return "portfolio";
-	}
+	model.addAttribute("ptf", ptf);
+	return "portfolio";
+    }
 
-	private List<PtfContentLineVO> createContentLines() {
-		List<PtfContentLineVO> lines = new ArrayList<PtfContentLineVO>();
-		PtfContentLineVO line = new PtfContentLineVO("");
-		List<PtfContentCellVO> cols = createContentColumns();
-		line.setCols(cols);
+    private List<PtfContentLineVO> createContentLines() {
+	List<PtfContentLineVO> lines = new ArrayList<PtfContentLineVO>();
+	PtfContentLineVO line = new PtfContentLineVO("");
+	List<PtfContentCellVO> cols = createContentColumns();
+	line.setCols(cols);
 
-		lines.add(line);
-		lines.add(line);
+	lines.add(line);
+	lines.add(line);
 
-		return lines;
-	}
+	return lines;
+    }
 
-	private List<PtfContentCellVO> createContentColumns() {
-		List<PtfContentCellVO> cols = new ArrayList<PtfContentCellVO>();
-		return cols;
-	}
+    private List<PtfContentCellVO> createContentColumns() {
+	List<PtfContentCellVO> cols = new ArrayList<PtfContentCellVO>();
+	return cols;
+    }
 
-	private List<PtfHeaderCellVO> createHeaderColumns() {
-		List<PtfHeaderCellVO> headerCol = new ArrayList<PtfHeaderCellVO>();
-		headerCol.add(new PtfHeaderCellVO("critical", "Date"));
-		headerCol.add(new PtfHeaderCellVO("1", "Qt1"));
-		headerCol.add(new PtfHeaderCellVO("6", "Nav"));
-		headerCol.add(new PtfHeaderCellVO("6", "Nav fnd%"));
-		headerCol.add(new PtfHeaderCellVO("6", "Qt2"));
-		headerCol.add(new PtfHeaderCellVO("1", "Instrument"));
-		headerCol.add(new PtfHeaderCellVO("1", "Type"));
-		headerCol.add(new PtfHeaderCellVO("1", "Maturity"));
-		headerCol.add(new PtfHeaderCellVO("1", "Strike"));
-		headerCol.add(new PtfHeaderCellVO("6", "Vol"));
-		headerCol.add(new PtfHeaderCellVO("6", "Vol D-1"));
-		headerCol.add(new PtfHeaderCellVO("2", "P&L%"));
-		headerCol.add(new PtfHeaderCellVO("6", "P&L Mtd%"));
-		headerCol.add(new PtfHeaderCellVO("6", "P&L"));
-		headerCol.add(new PtfHeaderCellVO("3", "Px"));
-		headerCol.add(new PtfHeaderCellVO("6", "Px D-1"));
-		return headerCol;
-	}
+    private List<PtfHeaderCellVO> createHeaderColumns() {
+	List<PtfHeaderCellVO> headerCol = new ArrayList<PtfHeaderCellVO>();
+	headerCol.add(new PtfHeaderCellVO("critical", "Date"));
+	headerCol.add(new PtfHeaderCellVO("1", "Qt1"));
+	headerCol.add(new PtfHeaderCellVO("6", "Nav"));
+	headerCol.add(new PtfHeaderCellVO("6", "Nav fnd%"));
+	headerCol.add(new PtfHeaderCellVO("6", "Qt2"));
+	headerCol.add(new PtfHeaderCellVO("1", "Instrument"));
+	headerCol.add(new PtfHeaderCellVO("1", "Type"));
+	headerCol.add(new PtfHeaderCellVO("1", "Maturity"));
+	headerCol.add(new PtfHeaderCellVO("1", "Strike"));
+	headerCol.add(new PtfHeaderCellVO("6", "Vol"));
+	headerCol.add(new PtfHeaderCellVO("6", "Vol D-1"));
+	headerCol.add(new PtfHeaderCellVO("2", "P&L%"));
+	headerCol.add(new PtfHeaderCellVO("6", "P&L Mtd%"));
+	headerCol.add(new PtfHeaderCellVO("6", "P&L"));
+	headerCol.add(new PtfHeaderCellVO("3", "Px"));
+	headerCol.add(new PtfHeaderCellVO("6", "Px D-1"));
+	return headerCol;
+    }
 
 }

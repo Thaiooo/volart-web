@@ -23,39 +23,34 @@ import com.ubp.volart.model.VolartUser;
 @Transactional(readOnly = true)
 public class VolartUserDetailsService implements UserDetailsService {
 
-	@Autowired
-	private UserDAO userDAO;
+    @Autowired
+    private UserDAO userDAO;
 
-	@Override
-	public UserDetails loadUserByUsername(String username)
-			throws UsernameNotFoundException {
-		VolartUser user = userDAO.findByUserName(username);
-		if (user == null) {
-			throw new UsernameNotFoundException("Nooooooo");
-		}
-		List<GrantedAuthority> authorities = buildUserAuthority(user
-				.getUserRole());
-		return buildUserForAuthentication(user, authorities);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	VolartUser user = userDAO.findByUserName(username);
+	if (user == null) {
+	    throw new UsernameNotFoundException("Nooooooo");
+	}
+	List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
+	return buildUserForAuthentication(user, authorities);
+    }
+
+    private User buildUserForAuthentication(VolartUser user, List<GrantedAuthority> authorities) {
+	return new User(user.getUsername(), user.getPassword(), true, true, true, true, authorities);
+    }
+
+    private List<GrantedAuthority> buildUserAuthority(Set<UserRole> userRoles) {
+	Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
+
+	// Build user's authorities
+	for (UserRole userRole : userRoles) {
+	    setAuths.add(new SimpleGrantedAuthority(userRole.getRole()));
 	}
 
-	private User buildUserForAuthentication(VolartUser user,
-			List<GrantedAuthority> authorities) {
-		return new User(user.getUsername(), user.getPassword(), true, true,
-				true, true, authorities);
-	}
+	List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);
 
-	private List<GrantedAuthority> buildUserAuthority(Set<UserRole> userRoles) {
-		Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
-
-		// Build user's authorities
-		for (UserRole userRole : userRoles) {
-			setAuths.add(new SimpleGrantedAuthority(userRole.getRole()));
-		}
-
-		List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(
-				setAuths);
-
-		return Result;
-	}
+	return Result;
+    }
 
 }
