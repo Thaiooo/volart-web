@@ -2,6 +2,7 @@ package com.ubp.volart.dao;
 
 import java.util.List;
 
+import com.ubp.volart.model.Fund;
 import com.ubp.volart.model.VolartUser;
 
 public interface UserDAO {
@@ -10,4 +11,6 @@ public interface UserDAO {
     List<VolartUser> findAllUsers();
 
     VolartUser findByUserName(String username);
+
+    List<Fund> findAllowFundByUsername(String anUsername);
 }
