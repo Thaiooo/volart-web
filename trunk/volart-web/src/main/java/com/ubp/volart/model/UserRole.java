@@ -14,40 +14,40 @@ import javax.persistence.Table;
 @Table(name = "USER_ROLES")
 public class UserRole {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", nullable = false)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID", nullable = false)
+	private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", nullable = false)
-    private VolartUser user;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID", nullable = false)
+	private VolartUser user;
 
-    @Column(name = "ROLE", nullable = false)
-    private String role;
+	@Column(name = "ROLE", nullable = false)
+	private String role;
 
-    public Integer getId() {
-	return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-	this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public VolartUser getUser() {
-	return user;
-    }
+	public VolartUser getUser() {
+		return user;
+	}
 
-    public void setUser(VolartUser user) {
-	this.user = user;
-    }
+	public void setUser(VolartUser user) {
+		this.user = user;
+	}
 
-    public String getRole() {
-	return role;
-    }
+	public String getRole() {
+		return role;
+	}
 
-    public void setRole(String role) {
-	this.role = role;
-    }
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 }
