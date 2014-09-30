@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ubp.volart.vo.indicator.CurrentVarVO;
 import com.ubp.volart.vo.indicator.DrawDownVO;
@@ -24,18 +23,19 @@ import com.ubp.volart.vo.indicator.VarLineVO;
  * Handles requests for the application home page.
  */
 @Controller
+@SessionAttributes({ "POSITION", "PTF" })
 public class RiskController {
 
     private static final Logger logger = LoggerFactory.getLogger(RiskController.class);
 
     @RequestMapping(value = "/risk/{ptfName}", method = RequestMethod.GET)
-    public String indicator(@PathVariable String ptfName, Model model, HttpSession session) {
+    public String indicator(@PathVariable String ptfName, Model model) {
 	logger.info("Risk: " + ptfName);
 
 	// Definir la position dans la session
-	session.setAttribute("POSITION", "risk");
+	model.addAttribute("POSITION", "risk");
 	// Definir le fond selectionne dans la session
-	session.setAttribute("PTF", ptfName);
+	model.addAttribute("PTF", ptfName);
 
 	// TODO: Controler l'authorisation de l'utilisateur pour le fond
 	RiskVO risk = new RiskVO();

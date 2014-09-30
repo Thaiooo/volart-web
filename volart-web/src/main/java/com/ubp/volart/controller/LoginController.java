@@ -2,7 +2,6 @@ package com.ubp.volart.controller;
 
 import java.security.Principal;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -21,13 +20,13 @@ public class LoginController {
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @RequestMapping(value = "/login")
-    public String login(Model model, HttpSession session) {
+    public String login() {
 	logger.info("Login");
 	return "login";
     }
 
     @RequestMapping(value = "/loginError")
-    public String loginError(Model model, HttpSession session, HttpServletRequest request) {
+    public String loginError(Model model) {
 	logger.info("Login Error");
 	model.addAttribute("error", "true");
 	return "login";
