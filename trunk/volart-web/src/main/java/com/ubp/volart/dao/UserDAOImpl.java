@@ -11,6 +11,7 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
+import com.ubp.volart.model.Fund;
 import com.ubp.volart.model.VolartUser;
 
 @Repository
@@ -27,7 +28,6 @@ public class UserDAOImpl implements UserDAO {
     @SuppressWarnings("unchecked")
     @Override
     public VolartUser findByUserName(String username) {
-
 	List<VolartUser> users = new ArrayList<VolartUser>();
 	users = entityManager.createQuery("from VolartUser where username=:login").setParameter("login", username)
 		.getResultList();
@@ -37,6 +37,14 @@ public class UserDAOImpl implements UserDAO {
 	} else {
 	    return null;
 	}
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Fund> findAllowFundByUsername(String anUsername) {
+	List<Fund> funds = entityManager.createQuery("select u.allowFunds from VolartUser u where u.username=:login")
+		.setParameter("login", anUsername).getResultList();
+	return funds;
     }
 
     @Override
