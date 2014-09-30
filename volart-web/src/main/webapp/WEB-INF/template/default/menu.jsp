@@ -10,51 +10,35 @@
 				<a href="<c:url value="/j_spring_security_logout" />" rel="external">Logout</a>
 			</li>
 			<li data-role="list-divider">Portfolio</li>
-			<c:choose>
-				<c:when test="${ POSITION  == 'ptf' && PTF  == 'Offensive Overlay' }">
-					<c:set scope="page" var="classSelected" value="b" />
-				</c:when>
-				<c:otherwise>
-					<c:set scope="page" var="classSelected" value="a" />
-				</c:otherwise>
-			</c:choose>
-			<li data-theme='<c:out value="${classSelected}" />'>
-				<a href="<c:url value="/portfolio/Offensive Overlay"/>" rel="external">Offensive Overlay</a>
-			</li>
-			<c:choose>
-				<c:when test="${ POSITION  == 'ptf' && PTF  == 'Short Bias GS' }">
-					<c:set scope="page" var="classSelected" value="b" />
-				</c:when>
-				<c:otherwise>
-					<c:set scope="page" var="classSelected" value="a" />
-				</c:otherwise>
-			</c:choose>
-			<li data-theme='<c:out value="${classSelected}" />'>
-				<a href="<c:url value="/portfolio/Short Bias GS"/>" rel="external">Short Bias GS</a>
-			</li>
+			<c:forEach var="fund" items="${FUNDS}">
+				<c:choose>
+					<c:when test="${ POSITION  == 'ptf' && PTF  == fund.name }">
+						<c:set scope="page" var="classSelected" value="b" />
+					</c:when>
+					<c:otherwise>
+						<c:set scope="page" var="classSelected" value="a" />
+					</c:otherwise>
+				</c:choose>
+				<li data-theme='<c:out value="${classSelected}" />'>
+					<a href="<c:url value="/portfolio/${fund.name}"/>" rel="external">${fund.name}</a>
+				</li>
+			</c:forEach>
+			
 			<li data-role="list-divider">Risk</li>
-			<c:choose>
-				<c:when test="${ POSITION  == 'risk' && PTF  == 'Offensive Overlay' }">
-					<c:set scope="page" var="classSelected" value="b" />
-				</c:when>
-				<c:otherwise>
-					<c:set scope="page" var="classSelected" value="a" />
-				</c:otherwise>
-			</c:choose>
-			<li data-theme='<c:out value="${classSelected}" />'>
-				<a href="<c:url value="/risk/Offensive Overlay"/>" rel="external">Offensive Overlay</a>
-			</li>
-			<c:choose>
-				<c:when test="${ POSITION  == 'risk' && PTF  == 'Short Bias GS' }">
-					<c:set scope="page" var="classSelected" value="b" />
-				</c:when>
-				<c:otherwise>
-					<c:set scope="page" var="classSelected" value="a" />
-				</c:otherwise>
-			</c:choose>
-			<li data-theme='<c:out value="${classSelected}" />'>
-				<a href="<c:url value="/risk/Short Bias GS"/>" rel="external">Short Bias GS</a>
-			</li>
+			<c:forEach var="fund" items="${FUNDS}">
+				<c:choose>
+					<c:when test="${ POSITION  == 'risk' && PTF  == fund.name }">
+						<c:set scope="page" var="classSelected" value="b" />
+					</c:when>
+					<c:otherwise>
+						<c:set scope="page" var="classSelected" value="a" />
+					</c:otherwise>
+				</c:choose>
+				<li data-theme='<c:out value="${classSelected}" />'>
+					<a href="<c:url value="/risk/${fund.name}"/>" rel="external">${fund.name}</a>
+				</li>
+			</c:forEach>
+			
 			<li data-role="list-divider">Indicator</li>
 			<c:choose>
 				<c:when test="${ POSITION  == 'indicator' }">
