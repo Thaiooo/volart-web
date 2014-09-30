@@ -30,7 +30,7 @@ public class VolartUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 	VolartUser user = userDAO.findByUserName(username);
 	if (user == null) {
-	    throw new UsernameNotFoundException("Nooooooo");
+	    throw new UsernameNotFoundException("No user found");
 	}
 	List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
 	return buildUserForAuthentication(user, authorities);
