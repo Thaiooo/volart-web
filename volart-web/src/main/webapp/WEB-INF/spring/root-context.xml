@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:component-scan base-package="com.ubp.volart" />
+
+	<!-- ========================= -->
+	<!-- JPA                       -->
+	<!-- ========================= -->
+	<tx:annotation-driven />
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+	    <property name="url" value="jdbc:mysql://localhost:3306/volart" />
+	    <property name="username" value="root" />
+	    <property name="password" value="Thaisone" />
+	</bean>
+
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    	<property name="persistenceUnitName" value="persistenceUnit" />
+    	<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	
+	<!-- ========================= -->
+	<!-- SECURITY                  -->
+	<!-- ========================= -->
+
+	<security:http auto-config="true" use-expressions="true">
+		<security:access-denied-handler error-page="/403" />
+		<security:intercept-url pattern="/" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/home" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/portfolio/*" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/risk/*" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/indicator" access="hasRole('ADMIN')" />
+		<security:form-login login-page="/login" default-target-url="/home" authentication-failure-url="/loginError" />
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="volartUserDetailsService">  
+            <security:password-encoder hash="plaintext"></security:password-encoder>
+        </security:authentication-provider>  
+		<!--  
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="a" password="a" authorities="USER, ADMIN" />
+			</security:user-service>
+		</security:authentication-provider>
+		-->
+	</security:authentication-manager>
+	
+</beans>

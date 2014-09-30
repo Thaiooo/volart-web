@@ -1,0 +1,186 @@
+.warning-message{
+	color: red;
+}
+
+.center-div {
+     position: absolute;
+     margin: auto;
+     margin-top: 100px;
+     top: 0;
+     right: 0;
+     bottom: 0;
+     left: 0;
+     width: 300px;
+}
+
+.partCoin {		
+	margin-top: 1.3em;
+}
+
+.volart-table  tbody tr th{	
+	font-style: normal;
+	font-weight: normal;
+}
+
+.volart-table  thead{
+}
+
+/*
+ For ptf table
+*/
+#ptf .level1 th {	
+	font-style: italic;
+	font-weight: lighter;
+	font-size: 0.7em;
+}
+
+#ptf .level2 th {
+	font-style: normal;
+	font-weight: bold;
+	font-size: 0.8em;
+}
+
+#ptf .level3 th {
+	font-style: normal;
+	font-weight: bold;
+	font-size: 0.9em;
+}
+
+#ptf .level4 th {
+	font-style: normal;
+	font-weight: bold;	
+}	
+/*
+ For menu
+*/
+#menupanel a {
+	font-size: 12px;
+}
+
+.ptf-indicator .ui-block-a,
+.ptf-indicator .ui-block-b,
+.ptf-indicator .ui-block-c,
+.ptf-indicator .ui-block-d,
+.ptf-indicator .ui-block-e,
+.ptf-indicator .ui-block-f,
+.ptf-indicator .ui-block-g,
+.ptf-indicator .ui-block-h {	
+	width: 25%;
+	float: left;
+}
+
+/* Stack all blocks to start */
+.rwd-risk .ui-block-a,
+.rwd-risk .ui-block-b,
+.rwd-risk .ui-block-c,
+.rwd-risk .ui-block-d {
+    width: 100%;
+    float: none;
+}
+
+/* Smartphone */
+@media all and (max-width: 600px) {	
+	.partCoin {		
+		margin-top: 1.62em;
+	}
+
+	/*
+	 For title, asset, date
+	*/
+	#volartHeader {
+		font-size: 0.9em;
+	}
+	
+	/*
+	 For title
+	*/
+	#volartHeader h3 {
+		font-size: 1.3em;		
+	}
+	
+	/*
+		For ptf table
+	*/
+	#ptf {
+		font-size: 0.8em;
+	}
+	
+	/*
+	 For ptf: P&L, Delta, ...
+	*/
+	.ptf-indicator {
+		font-size: 0.8em;
+	}
+	
+	.ptf-indicator {
+        overflow: hidden; /* Use this or a "clearfix" to give the container height */
+    }
+	
+	.ptf-indicator .ui-block-a,
+	.ptf-indicator .ui-block-b,
+	.ptf-indicator .ui-block-c,
+	.ptf-indicator .ui-block-d,
+	.ptf-indicator .ui-block-e,
+	.ptf-indicator .ui-block-f,
+	.ptf-indicator .ui-block-g,
+	.ptf-indicator .ui-block-h {
+		width: 50%;
+	}	
+}
+
+@media all and (min-width: 42em) {
+    .rwd-risk {
+        overflow: hidden; /* Use this or a "clearfix" to give the container height */
+    }
+    .rwd-risk .ui-block-b,
+    .rwd-risk .ui-block-c {
+      float: left;
+      width: 49.95%;
+    }
+
+    .rwd-risk > div + div .ui-body {
+		border-width: 1px;
+    }
+	
+    .rwd-risk > div:first-child .ui-body {
+       border-bottom-width: 1px;
+    }
+	
+	.rwd-risk > div:last-child .ui-body {
+        border-width: 1px;
+    }
+}
+
+/* 3rd breakpoint - very wide screens */
+@media all and (min-width: 100em) {
+	.rwd-risk > div + div .ui-body {
+		border-width: 1px;
+    }
+	
+    .rwd-risk > div:first-child .ui-body {
+       border-bottom-width: 1px;
+    }
+	
+	.rwd-risk > div:last-child .ui-body {
+        border-width: 1px;
+    }
+	
+    .rwd-risk .ui-block-a,
+	.rwd-risk .ui-block-b,
+    .rwd-risk .ui-block-c,
+	.rwd-risk .ui-block-d {
+      float: left;
+      width: 25%;
+    }
+	
+	.ptf-indicator .ui-block-a,
+	.ptf-indicator .ui-block-b,
+	.ptf-indicator .ui-block-c,
+	.ptf-indicator .ui-block-d,
+	.ptf-indicator .ui-block-e,
+	.ptf-indicator .ui-block-f,
+	.ptf-indicator .ui-block-g,
+	.ptf-indicator .ui-block-h {
+		width: 13%;
+	}	
+}
