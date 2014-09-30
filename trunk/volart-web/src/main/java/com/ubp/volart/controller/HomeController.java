@@ -3,8 +3,6 @@ package com.ubp.volart.controller;
 import java.security.Principal;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +20,6 @@ import com.ubp.volart.service.UserService;
 @SessionAttributes({ "FUNDS", "POSITION" })
 public class HomeController {
 
-    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-
     @Autowired
     private UserService userSvc;
 
@@ -33,9 +29,6 @@ public class HomeController {
 
 	// Load allow fund for the current user and put it in the session
 	List<Fund> funds = userSvc.loadAllowFundsByUsername(principal.getName());
-	for (Fund f : funds) {
-	    logger.info("---->" + f.getName());
-	}
 	model.addAttribute("FUNDS", funds);
 
 	return "home";
