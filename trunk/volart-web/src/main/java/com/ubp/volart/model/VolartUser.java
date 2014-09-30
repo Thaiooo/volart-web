@@ -9,11 +9,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "USER")
+@Table(name = "T_USER")
 public class VolartUser {
 
     @Id
@@ -29,6 +32,18 @@ public class VolartUser {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<UserRole> userRole = new HashSet<UserRole>(0);
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "J_USER_FUND", joinColumns = @JoinColumn(name = "USER_ID", nullable = false), inverseJoinColumns = @JoinColumn(name = "FUND_ID", nullable = false))
+    private Set<UserRole> allowFunds = new HashSet<UserRole>(0);
+
+    public Set<UserRole> getAllowFunds() {
+	return allowFunds;
+    }
+
+    public void setAllowFunds(Set<UserRole> allowFunds) {
+	this.allowFunds = allowFunds;
+    }
 
     public String getUsername() {
 	return username;
