@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ubp.volart.model.Portfolio;
 import com.ubp.volart.service.PortfolioService;
-import com.ubp.volart.vo.ptf.PortfolioVO;
 import com.ubp.volart.vo.ptf.PtfContentCellVO;
 import com.ubp.volart.vo.ptf.PtfContentLineVO;
 import com.ubp.volart.vo.ptf.PtfHeaderCellVO;
