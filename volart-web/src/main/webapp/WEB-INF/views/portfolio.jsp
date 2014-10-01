@@ -26,6 +26,12 @@
 				setTimeout(function() { $( "#popupDialog" ).popup( "open" ) }, 100 );
 			}
 		});
+		
+		$(document).ready(function(){
+			$( "#ptfDate" ).change(function() {
+			  $(location).attr('href',"./indicator");
+			});
+		});
 	</tiles:putAttribute>
 	
     <tiles:putAttribute name="body">
@@ -35,7 +41,12 @@
 			<div class="ui-block-b"><h3 align="center">Portfolio: ${ptf.fund.name}</h3>	</div>
 			<div class="ui-block-c partCoinRight" align="right">
 				<div class="dateInput" >
-					<input type="text" data-role="datebox" value="<fmt:formatDate value="${ptf.date}" pattern="dd/MM/yyyy"/>" data-options='{"mode":"datebox", "overrideDateFormat":"%0d/%m/%Y"}'>
+					<input id="ptfDate" 
+						type="text" 
+						data-role="datebox" 
+						value="<fmt:formatDate value="${ptf.date}" pattern="dd/MM/yyyy"/>" 
+						data-options='{"mode":"datebox", "popupPosition":"center", "overrideDateFormat":"%0d/%m/%Y", "overrideHeaderFormat":"%0d/%m/%Y", "maxYear":2014}'
+					>
 				</div>
 			</div>
 		</div><!-- /Fund Name -->
@@ -51,8 +62,6 @@
 			<div class="ui-block-g"><div class="ui-body ui-body-d"><strong>Theta: </strong><fmt:formatNumber minFractionDigits="2" value="${ptf.theta}" type="percent"/></div></div>
 			<div class="ui-block-h"><div class="ui-body ui-body-d"><strong>Inv. Prem.: </strong><fmt:formatNumber minFractionDigits="2" value="${ptf.invPrem}" type="percent"/></div></div>
 		</div><!-- /Indicator -->
-		
-		
 		
 		<%--  
 		<!-- Portfolio Table -->
