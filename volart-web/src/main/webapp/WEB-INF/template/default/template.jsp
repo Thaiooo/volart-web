@@ -7,9 +7,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 		<link rel="stylesheet" href="<c:url value="/resources/css/themes/default/jquery.mobile-1.4.4.min.css" />">
+		<link rel="stylesheet" href="<c:url value="/resources/css/jqm-datebox-1.4.4.min.css" />">
 		<link rel="stylesheet" href="<c:url value="/resources/css/volart.css" />">
 		<script src="<c:url value="/resources/js/jquery.js" />"></script>
 		<script src="<c:url value="/resources/js/jquery.mobile-1.4.4.min.js" />"></script>
+		<script src="<c:url value="/resources/js/jqm-datebox-1.4.4.comp.datebox.min.js" />"></script>
 		
 		<tiles:insertAttribute name="importScripts" ignore="true"/>
 		

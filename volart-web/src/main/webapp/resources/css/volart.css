@@ -2,6 +2,10 @@
 	color: red;
 }
 
+.dateInput{
+	width: 130px; 
+}
+
 .center-div {
      position: absolute;
      margin: auto;
@@ -16,6 +20,11 @@
 .partCoin {		
 	margin-top: 1.3em;
 }
+
+.partCoinRight {		
+	margin-top: 0em;
+}
+
 
 .volart-table  tbody tr th{	
 	font-style: normal;
@@ -181,6 +190,6 @@
 	.ptf-indicator .ui-block-f,
 	.ptf-indicator .ui-block-g,
 	.ptf-indicator .ui-block-h {
-		width: 13%;
+		width: 12%;
 	}	
 }
