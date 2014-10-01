@@ -1,10 +1,12 @@
 package com.ubp.volart.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.ubp.volart.model.Portfolio;
+import com.ubp.volart.service.PortfolioService;
 import com.ubp.volart.vo.ptf.PortfolioVO;
 import com.ubp.volart.vo.ptf.PtfContentCellVO;
 import com.ubp.volart.vo.ptf.PtfContentLineVO;
@@ -26,6 +30,9 @@ public class PortfolioController {
 
     private static final Logger logger = LoggerFactory.getLogger(PortfolioController.class);
 
+    @Autowired
+    private PortfolioService ptfSvc;
+
     @RequestMapping(value = "/portfolio/{ptfName}", method = RequestMethod.GET)
     public String portfolio(@PathVariable String ptfName, Model model) {
 	logger.info("Portfolio: " + ptfName);
@@ -35,6 +42,10 @@ public class PortfolioController {
 	// Definir le fond selectionne dans la session
 	model.addAttribute("PTF", ptfName);
 
+	Date d = new Date();
+	Portfolio ptf = ptfSvc.findByNameAndDate(ptfName, d);
+
+	/*
 	PortfolioVO ptf = new PortfolioVO();
 
 	ptf.setName(ptfName);
@@ -54,6 +65,7 @@ public class PortfolioController {
 
 	List<PtfContentLineVO> lines = createContentLines();
 	ptf.setPtfContent(lines);
+	*/
 
 	model.addAttribute("ptf", ptf);
 	return "portfolio";
