@@ -40,8 +40,6 @@
 			</div>
 		</div><!-- /Fund Name -->
 		
-		
-		
 		<!-- Indicator -->		
 		<div class="ptf-indicator">
 			<div class="ui-block-a"><div class="ui-body ui-body-d"><strong>P&L: </strong><fmt:formatNumber minFractionDigits="2" value="${ptf.pnlD}" type="percent"/></div></div>
