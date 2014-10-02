@@ -11,8 +11,8 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
-import com.ubp.volart.model.Fund;
-import com.ubp.volart.model.VolartUser;
+import com.ubp.volart.model.common.Fund;
+import com.ubp.volart.model.user.VolartUser;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
