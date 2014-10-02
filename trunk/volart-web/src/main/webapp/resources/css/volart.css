@@ -37,28 +37,41 @@
 /*
  For ptf table
 */
-#ptf .level1 th {	
+#ptf .levelLeaf th {	
 	font-style: italic;
 	font-weight: lighter;
-	font-size: 0.7em;
+	font-size: 0.8em;
 }
 
-#ptf .level2 th {
-	font-style: normal;
-	font-weight: bold;
-	font-size: 0.8em;
+#ptf .levelLeaf  th.colName  {	
+	padding-left: 30px;
 }
 
 #ptf .level3 th {
 	font-style: normal;
 	font-weight: bold;
+	font-size: 0.8em;
+}
+
+#ptf .level3  th.colName  {	
+	padding-left: 20px;
+}
+
+#ptf .level2 th {
+	font-style: normal;
+	font-weight: bold;
 	font-size: 0.9em;
 }
 
-#ptf .level4 th {
+#ptf .level2  th.colName  {	
+	padding-left: 10px;
+}
+
+#ptf .level1 th {
 	font-style: normal;
 	font-weight: bold;	
-}	
+}
+
 /*
  For menu
 */
