@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.ubp.volart.model.Fund;
+import com.ubp.volart.model.common.Fund;
 import com.ubp.volart.service.UserService;
 
 /**
