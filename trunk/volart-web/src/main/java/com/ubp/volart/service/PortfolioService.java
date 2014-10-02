@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ubp.volart.dao.PortfolioDAO;
-import com.ubp.volart.model.Portfolio;
+import com.ubp.volart.model.portfolio.Portfolio;
 
 @Service
 @Transactional(readOnly = true)

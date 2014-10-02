@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ubp.volart.dao.UserDAO;
-import com.ubp.volart.model.UserRole;
-import com.ubp.volart.model.VolartUser;
+import com.ubp.volart.model.user.UserRole;
+import com.ubp.volart.model.user.VolartUser;
 
 @Service
 @Transactional(readOnly = true)
