@@ -4,7 +4,7 @@
  
 <tiles:insertDefinition name="defaultTemplate">
 	<tiles:putAttribute name="title">
-	Indicator
+	Portfolio: ${PTF}
 	</tiles:putAttribute>
 
 	<tiles:putAttribute name="otherScripts">
@@ -29,16 +29,20 @@
 		
 		$(document).ready(function(){
 			$( "#ptfDate" ).change(function() {
-			  $(location).attr('href',"./indicator");
+				var objDate = $("#ptfDate").datebox('getTheDate');
+				var date = $("#ptfDate").datebox('callFormat', '%0d-%m-%Y', objDate);
+				var url = '<c:url value="/portfolio/${PTF}/"/>' + date;
+				$(location).attr('href', url);
 			});
 		});
+		
 	</tiles:putAttribute>
 	
     <tiles:putAttribute name="body">
     	<!-- Fund Name -->    
 		<div id="volartHeader" class="ui-grid-b">
 			<div class="ui-block-a partCoin" ><strong>Asset:</strong> <fmt:formatNumber type="number" maxFractionDigits="3" value="${ptf.asset}" /></div>
-			<div class="ui-block-b"><h3 align="center">Portfolio: ${ptf.fund.name}</h3>	</div>
+			<div class="ui-block-b"><h3 align="center">Portfolio: ${PTF}</h3>	</div>
 			<div class="ui-block-c partCoinRight" align="right">
 				<div class="dateInput" >
 					<input id="ptfDate" 
@@ -63,56 +67,77 @@
 			<div class="ui-block-h"><div class="ui-body ui-body-d"><strong>Inv. Prem.: </strong><fmt:formatNumber minFractionDigits="2" value="${ptf.invPrem}" type="percent"/></div></div>
 		</div><!-- /Indicator -->
 		
-		<%--  
 		<!-- Portfolio Table -->
     	<table id="ptf" class="ui-body-d ui-shadow table-stripe ui-responsive volart-table" id="table-custom-2" data-role="table" data-mode="columntoggle" data-column-popup-theme="a" data-column-btn-text="Columns" data-column-btn-theme="b">
 			<thead>
+				
 				<tr class="ui-bar-d">
-					<c:forEach var="col" items="${ptf.ptfHeaderCols}">
-						<th data-priority="${col.dataPriority}">${col.name}</th>
-					</c:forEach>
+					<th data-priority="critical">Date</th>
+					<th data-priority="1"><abbr title="Quantity 1">Qt1</abbr></th>			 
+					<th data-priority="6">Nav</th>
+					<th data-priority="6">Nav fnd%</th>
+					<th data-priority="6"><abbr title="Quantity 2">Qt2</abbr></th>			
+					<th data-priority="1">Instrument</th>
+					<th data-priority="1">Type</th>
+					<th data-priority="1">Maturity</th>
+					<th data-priority="1">Strike</th>
+					<th data-priority="6"><abbr title="Volatility">Vol</abbr></th>
+					<th data-priority="6"><abbr title="Yesterday Volatility">Vol D-1</abbr></th>
+					<th data-priority="2">P&L%</th>
+					<th data-priority="6"><abbr title="P&L Month To Date %">P&L Mtd%</abbr></th>
+					<th data-priority="6">P&L </th>
+					<th data-priority="3"><abbr title="Price">Px</abbr></th>
+					<th data-priority="6"><abbr title="Yesterday Price">Px D-1</abbr></th>
 				</tr>
 			</thead>
-			<tbody>           
-				<c:forEach var="line" items="${ptf.ptfContent}">
-					<tr class="level4">
+			<tbody>   
+				<c:forEach var="line" items="${ptf.lines}">
+					<c:choose>
+						<c:when test="${ line.type  == 'LEAF'}">
+							<c:set scope="page" var="lineClass" value="levelLeaf" />
+						</c:when>
+						<c:otherwise>
+							<c:set scope="page" var="lineClass" value="level${line.level}" />
+						</c:otherwise>
+					</c:choose>
+				
+					<tr class="${lineClass}">
 						<!-- Date -->
-						<th nowrap >SB2</th>
+						<th nowrap class="colName">${line.name}</th>
 						<!-- Qt1 -->
-						<th></th>
+						<th><fmt:formatNumber type="number" maxFractionDigits="3" value="${line.quantity1}" /></th>
 						<!-- Nav -->
-						<th></th>
+						<th><fmt:formatNumber type="number" maxFractionDigits="3" value="${line.nav}" /></th>
 						<!-- Nav fnd% -->
-						<th>0.00%</th>
+						<th><fmt:formatNumber minFractionDigits="2" value="${line.navFundPercent}" type="percent"/></th>
 						<!-- Qt2 -->
-						<th></th>
+						<th><fmt:formatNumber type="number" maxFractionDigits="3" value="${line.quantity2}" /></th>
 						<!-- Inst -->
-						<th></th>
+						<th>${line.instrument}</th>
 						<!-- Type -->
-						<th></th>
+						<th>${line.instrumentType}</th>
 						<!-- Mat -->
-						<th></th>
+						<th><fmt:formatDate value="${line.maturity}" pattern="dd/MM/yyyy"/></th>
 						<!-- Strike -->
-						<th></th>
+						<th><fmt:formatNumber type="number" maxFractionDigits="3" value="${line.strike}" /></th>
 						<!-- Vol -->
-						<th></th>
+						<th><fmt:formatNumber minFractionDigits="2" value="${line.vol}" type="percent"/></th>
 						<!-- Vol D-1 -->
-						<th></th>
+						<th><fmt:formatNumber minFractionDigits="2" value="${line.volD1}" type="percent"/></th>
 						<!-- P&L %-->
-						<th></th>
+						<th><fmt:formatNumber minFractionDigits="2" value="${line.pnlPercent}" type="percent"/></th>
 						<!-- P&L Mtd % -->
-						<th></th>
+						<th><fmt:formatNumber minFractionDigits="2" value="${line.pnlMtDPercent}" type="percent"/></th>
 						<!-- P&L -->
-						<th></th>
+						<th><fmt:formatNumber type="number" maxFractionDigits="3" value="${line.pnl}" /></th>
 						<!-- Px -->
-						<th></th>
+						<th><fmt:formatNumber type="number" maxFractionDigits="3" value="${line.price}" /></th>
 						<!-- Px D-1 -->
-						<th></th>
+						<th><fmt:formatNumber type="number" maxFractionDigits="3" value="${line.priceD1}" /></th>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table><!-- /Portfolio Table -->
-		--%>
 		
     </tiles:putAttribute>
 </tiles:insertDefinition>
