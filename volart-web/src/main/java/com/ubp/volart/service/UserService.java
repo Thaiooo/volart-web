@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ubp.volart.dao.UserDAO;
-import com.ubp.volart.model.Fund;
+import com.ubp.volart.model.common.Fund;
 
 @Service
 @Transactional(readOnly = true)
