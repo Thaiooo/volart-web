@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import com.ubp.volart.model.common.Fund;
@@ -33,15 +35,18 @@ public class DrawDown implements Serializable {
     private Fund fund;
 
     @Column(name = "DRAW_DOWN_DATE", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     @Column(nullable = false)
     private double value;
 
     @Column(name = "START_DATE", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date startDate;
 
     @Column(name = "END_DATE", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date endDate;
 
     @Column(nullable = false)
