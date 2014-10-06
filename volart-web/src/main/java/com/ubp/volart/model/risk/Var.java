@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import com.ubp.volart.model.common.Fund;
@@ -33,7 +35,12 @@ public class Var implements Serializable {
     private Fund fund;
 
     @Column(name = "VAR_DATE", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date date;
+
+    @Column(name = "TARGET_DATE", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date targetDate;
 
     @Column(name = "IS_MONITORING", nullable = false)
     private boolean isMonitoring;
@@ -134,6 +141,14 @@ public class Var implements Serializable {
 
     public void setMax(double max) {
 	this.max = max;
+    }
+
+    public Date getTargetDate() {
+	return targetDate;
+    }
+
+    public void setTargetDate(Date targetDate) {
+	this.targetDate = targetDate;
     }
 
 }
