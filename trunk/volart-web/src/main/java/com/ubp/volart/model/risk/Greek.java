@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import com.ubp.volart.model.common.Fund;
@@ -36,6 +38,7 @@ public class Greek implements Serializable {
     private String name;
 
     @Column(name = "GREEK_DATE", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     @Column(nullable = false)
