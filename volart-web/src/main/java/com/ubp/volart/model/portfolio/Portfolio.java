@@ -18,6 +18,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 import com.ubp.volart.model.common.Fund;
 
@@ -25,7 +26,7 @@ import com.ubp.volart.model.common.Fund;
  * Entity implementation class for Entity: Portfolio
  */
 @Entity
-@Table(name = "T_PORTFOLIO")
+@Table(name = "T_PORTFOLIO", uniqueConstraints = @UniqueConstraint(columnNames = { "fund_id", "date" }))
 public class Portfolio implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -68,7 +69,7 @@ public class Portfolio implements Serializable {
     private Double invPrem;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @OrderBy("ORDER_NUM ASC")
+    @OrderBy("order ASC")
     @JoinColumn(name = "PTF_ID", referencedColumnName = "ID")
     private Set<PortfolioLine> lines = new HashSet<PortfolioLine>(0);
 
