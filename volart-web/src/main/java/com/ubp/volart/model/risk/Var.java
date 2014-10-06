@@ -20,7 +20,7 @@ import javax.persistence.UniqueConstraint;
 import com.ubp.volart.model.common.Fund;
 
 @Entity
-@Table(name = "T_VAR", uniqueConstraints = @UniqueConstraint(columnNames = { "FUND_ID", "VAR_DATE" }))
+@Table(name = "T_VAR", uniqueConstraints = @UniqueConstraint(columnNames = { "FUND_ID", "VAR_DATE", "DEPTH" }))
 public class Var implements Serializable {
 
     private static final long serialVersionUID = 1L;
