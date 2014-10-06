@@ -10,7 +10,6 @@
 	<tiles:putAttribute name="otherScripts">
 		$( window ).resize(function() {
 			var width = $( window ).width();
-			console.log(width);
 			if(width < 490){
 				setTimeout(function() { $( "#popupDialog" ).popup( "open" ) }, 100 );
 			}else{
@@ -20,9 +19,7 @@
 		
 		$( document ).on( "pageinit", function() {
 			var width = $( window ).width();
-			console.log(width);
 			if(width < 490){
-				console.log('Open');
 				setTimeout(function() { $( "#popupDialog" ).popup( "open" ) }, 100 );
 			}
 		});

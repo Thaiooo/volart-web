@@ -20,6 +20,15 @@
 			drawAllCanvas();
 		});
 		
+		$(document).ready(function(){
+			$( "#indicatorDate" ).change(function() {
+				var objDate = $("#indicatorDate").datebox('getTheDate');
+				var date = $("#indicatorDate").datebox('callFormat', '%0d-%m-%Y', objDate);
+				var url = '<c:url value="/indicator/"/>' + date;
+				$(location).attr('href', url);
+			});
+		});
+		
 		function drawAllCanvas(){
 			<c:forEach var="dstatGroup" items="${indicator.dstatLines}">
 				<c:forEach var="line" items="${dstatGroup.lines}">
@@ -34,7 +43,16 @@
 		<div id="volartHeader" class="ui-grid-b">
 			<div class="ui-block-a partCoin" ></div>
 			<div class="ui-block-b"><h3 align="center">Indicator</h3></div>
-			<div class="ui-block-c partCoin" align="right"><strong>Date: </strong><fmt:formatDate value="${indicator.date}" pattern="dd/MM/yyyy"/></div>
+			<div class="ui-block-c partCoinRight" align="right">
+				<div class="dateInput" >
+					<input id="indicatorDate" 
+						type="text" 
+						data-role="datebox" 
+						value="<fmt:formatDate value="${indicator.date}" pattern="dd/MM/yyyy"/>" 
+						data-options='{"mode":"datebox", "popupPosition":"center", "overrideDateFormat":"%0d/%m/%Y", "overrideHeaderFormat":"%0d/%m/%Y", "maxYear":2014}'
+					>
+				</div>
+			</div>
 		</div><!-- /Fund Name -->
 		
 			<p>
