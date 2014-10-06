@@ -21,6 +21,15 @@
 			drawAllCanvas();
 		});
 		
+		$(document).ready(function(){
+			$( "#riskDate" ).change(function() {
+				var objDate = $("#riskDate").datebox('getTheDate');
+				var date = $("#riskDate").datebox('callFormat', '%0d-%m-%Y', objDate);
+				var url = '<c:url value="/risk/${PTF}/"/>' + date;
+				$(location).attr('href', url);
+			});
+		});
+		
 		function drawAllCanvas(){
 			// Min, Max, Val
 			drawGauge("divVar","canvasVar", ${risk.currentVar.min * 100}, ${risk.currentVar.max * 100}, ${risk.currentVar.var * 100});
@@ -42,7 +51,16 @@
 		<div id="volartHeader" class="ui-grid-b">
 			<div class="ui-block-a partCoin" ></div>
 			<div class="ui-block-b"><h3 align="center">Portfolio: ${risk.fundName}</h3>	</div>
-			<div class="ui-block-c partCoin" align="right"><strong>Date: </strong>${risk.date}</div>
+			<div class="ui-block-c partCoinRight" align="right">
+				<div class="dateInput" >
+					<input id="riskDate" 
+						type="text" 
+						data-role="datebox" 
+						value="<fmt:formatDate value="${risk.date}" pattern="dd/MM/yyyy"/>" 
+						data-options='{"mode":"datebox", "popupPosition":"center", "overrideDateFormat":"%0d/%m/%Y", "overrideHeaderFormat":"%0d/%m/%Y", "maxYear":2014}'
+					>
+				</div>
+			</div>
 		</div><!-- /Fund Name -->
 		
 			<div class="rwd-risk">
@@ -77,7 +95,7 @@
 												<th><fmt:formatNumber value="${var.level}" type="percent"/></th>
 												<th><fmt:formatNumber value="${var.var}" type="percent"/></th>
 												<th>
-												<fmt:formatNumber type="number" maxFractionDigits="3" value="${var.varAmount}" />
+												<fmt:formatNumber type="number" maxFractionDigits="3" value="${var.amount}" />
 												</th>
 												<th><fmt:formatDate value="${var.date}" pattern="dd/MM/yyyy"/></th>								
 											</tr>
@@ -133,7 +151,8 @@
 					</div>
 				</div> <!-- Fin block c -->
 				
-				<!-- Block b -->
+				<%--
+				<!-- Block d -->
 				<div class="ui-block-d">
 					<div class="ui-body ui-body-d">
 						<div class="ui-corner-all custom-corners">
@@ -145,8 +164,9 @@
 							</div>
 						</div>
 					</div>
-				</div> <!-- Fin block b -->
-			
+				</div> <!-- Fin block d -->
+				--%>
+				
 			</div> <!-- RWD risk -->
 			
     </tiles:putAttribute>
