@@ -81,7 +81,11 @@ public class RiskController {
 	risk.setGreeks(greeks);
 	risk.setVars(vars);
 	risk.setDrawDown(drawDown);
-	// risk.setCurrentVar();
+	for (Var v : vars) {
+	    if (v.isMonitoring()) {
+		risk.setCurrentVar(v);
+	    }
+	}
 
 	model.addAttribute("risk", risk);
     }
