@@ -15,11 +15,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.ubp.volart.model.common.Fund;
 
 @Entity
-@Table(name = "T_USER")
+@Table(name = "T_USER", uniqueConstraints = @UniqueConstraint(columnNames = { "USERNAME" }))
 public class VolartUser implements Serializable {
 
     /**
