@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,7 +45,7 @@ public class Portfolio implements Serializable {
     private Date date;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "FUND_ID")
+    @JoinColumn(name = "FUND_ID", foreignKey = @ForeignKey(name = "FK_PTF_FUND"))
     private Fund fund;
 
     @Column(name = "PNL_D")
