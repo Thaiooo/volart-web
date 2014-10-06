@@ -1,11 +1,12 @@
 package com.ubp.volart.controller;
 
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.ubp.volart.vo.indicator.CurrentVarVO;
-import com.ubp.volart.vo.indicator.DrawDownVO;
-import com.ubp.volart.vo.indicator.GreekLineVO;
+import com.ubp.volart.model.risk.DrawDown;
+import com.ubp.volart.model.risk.Greek;
+import com.ubp.volart.model.risk.Var;
+import com.ubp.volart.service.RiskService;
 import com.ubp.volart.vo.indicator.RiskVO;
-import com.ubp.volart.vo.indicator.VarLineVO;
 
 /**
  * Handles requests for the application home page.
@@ -28,6 +29,9 @@ public class RiskController {
 
     private static final Logger logger = LoggerFactory.getLogger(RiskController.class);
 
+    @Autowired
+    private RiskService riskSvc;
+
     @RequestMapping(value = "/risk/{ptfName}", method = RequestMethod.GET)
     public String indicator(@PathVariable String ptfName, Model model) {
 	logger.info("Risk: " + ptfName);
@@ -37,32 +41,27 @@ public class RiskController {
 	// Definir le fond selectionne dans la session
 	model.addAttribute("PTF", ptfName);
 
+	Calendar cal = Calendar.getInstance();
+	cal.add(Calendar.DATE, -1);
+	cal.getTime();
+	Date d = cal.getTime();
+
+	List<Var> vars = riskSvc.findVarByFundAndDate(ptfName, d);
+	DrawDown drawDown = riskSvc.findDrawDownByFundAndDate(ptfName, d);
+	List<Greek> greeks = riskSvc.findGreekByFundDate(ptfName, d);
+
 	// TODO: Controler l'authorisation de l'utilisateur pour le fond
 	RiskVO risk = new RiskVO();
-	risk.setDate("2014/09/21");
+	risk.setDate(d);
 	risk.setFundName(ptfName);
-	risk.setGreeks(createGreeks());
-	risk.setVars(createVars());
-	risk.setDrawDown(new DrawDownVO(-0.02, -0.05, new Date(), new Date()));
-	risk.setCurrentVar(new CurrentVarVO("250 Day", 0.99, -0.01, -0.1, 0.2));
+	risk.setGreeks(greeks);
+	risk.setVars(vars);
+	risk.setDrawDown(drawDown);
+	// risk.setCurrentVar();
 
 	model.addAttribute("risk", risk);
 
 	return "risk";
-    }
-
-    private List<VarLineVO> createVars() {
-	List<VarLineVO> vars = new ArrayList<VarLineVO>();
-	vars.add(new VarLineVO("250 D", 0.99, -0.0142, 646402.5, new Date()));
-	return vars;
-    }
-
-    private List<GreekLineVO> createGreeks() {
-	List<GreekLineVO> greeks = new ArrayList<GreekLineVO>();
-	greeks.add(new GreekLineVO("Delta", -0.01, 0.05, 0.03));
-	greeks.add(new GreekLineVO("Vega", -0.02, 0.06, 0.04));
-	greeks.add(new GreekLineVO("Theta", -0.03, 0.08, 0.05));
-	return greeks;
     }
 
 }
