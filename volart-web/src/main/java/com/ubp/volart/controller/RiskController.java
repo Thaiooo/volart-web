@@ -1,5 +1,7 @@
 package com.ubp.volart.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -32,36 +34,56 @@ public class RiskController {
     @Autowired
     private RiskService riskSvc;
 
-    @RequestMapping(value = "/risk/{ptfName}", method = RequestMethod.GET)
-    public String indicator(@PathVariable String ptfName, Model model) {
-	logger.info("Risk: " + ptfName);
+    @RequestMapping(value = "/risk/{ptfName}/{ptfDate}", method = RequestMethod.GET)
+    public String riskByDate(@PathVariable String ptfName, @PathVariable String ptfDate, Model model) {
+	logger.info("Risk: " + ptfName + " Date:" + ptfDate);
 
-	// Definir la position dans la session
-	model.addAttribute("POSITION", "risk");
-	// Definir le fond selectionne dans la session
-	model.addAttribute("PTF", ptfName);
+	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	Date d = null;
+	try {
+	    d = sdf.parse(ptfDate);
+	} catch (ParseException e) {
+	    logger.error("Date format error:" + ptfDate);
+	    d = new Date();
+	}
+	loadRisk(model, ptfName, d);
+
+	return "risk";
+    }
+
+    @RequestMapping(value = "/risk/{ptfName}", method = RequestMethod.GET)
+    public String risk(@PathVariable String ptfName, Model model) {
+	logger.info("Risk: " + ptfName);
 
 	Calendar cal = Calendar.getInstance();
 	cal.add(Calendar.DATE, -1);
 	cal.getTime();
 	Date d = cal.getTime();
 
-	List<Var> vars = riskSvc.findVarByFundAndDate(ptfName, d);
-	DrawDown drawDown = riskSvc.findDrawDownByFundAndDate(ptfName, d);
-	List<Greek> greeks = riskSvc.findGreekByFundDate(ptfName, d);
+	loadRisk(model, ptfName, d);
 
-	// TODO: Controler l'authorisation de l'utilisateur pour le fond
+	return "risk";
+    }
+
+    private void loadRisk(Model model, String aName, Date aDate) {
+	// Definir la position dans la session
+	model.addAttribute("POSITION", "risk");
+	// Definir le fond selectionne dans la session
+	model.addAttribute("PTF", aName);
+
+	List<Var> vars = riskSvc.findVarByFundAndDate(aName, aDate);
+	DrawDown drawDown = riskSvc.findDrawDownByFundAndDate(aName, aDate);
+	List<Greek> greeks = riskSvc.findGreekByFundDate(aName, aDate);
+
 	RiskVO risk = new RiskVO();
-	risk.setDate(d);
-	risk.setFundName(ptfName);
+	risk.setDate(aDate);
+	risk.setFundName(aName);
 	risk.setGreeks(greeks);
 	risk.setVars(vars);
 	risk.setDrawDown(drawDown);
 	// risk.setCurrentVar();
 
 	model.addAttribute("risk", risk);
-
-	return "risk";
     }
 
 }
