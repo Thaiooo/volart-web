@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
  
 <tiles:insertDefinition name="defaultTemplate">
 	<tiles:putAttribute name="title">
@@ -20,9 +21,9 @@
 		});
 		
 		function drawAllCanvas(){
-			<c:forEach var="dstatGroup" items="${indicator.dstatValues}">
+			<c:forEach var="dstatGroup" items="${indicator.dstatLines}">
 				<c:forEach var="line" items="${dstatGroup.lines}">
-					drawDStat("${line.id}", 0, 4.45, 1.32);
+					drawDStat("${line.id}", ${line.downDStat}, ${line.upDStat}, ${line.todayValue});
 				</c:forEach>
 			</c:forEach>
 		}
@@ -33,7 +34,7 @@
 		<div id="volartHeader" class="ui-grid-b">
 			<div class="ui-block-a partCoin" ></div>
 			<div class="ui-block-b"><h3 align="center">Indicator</h3></div>
-			<div class="ui-block-c partCoin" align="right"><strong>Date: </strong>${indicator.date}</div>
+			<div class="ui-block-c partCoin" align="right"><strong>Date: </strong><fmt:formatDate value="${indicator.date}" pattern="dd/MM/yyyy"/></div>
 		</div><!-- /Fund Name -->
 		
 			<p>
@@ -44,7 +45,7 @@
 					<div class="ui-body ui-body-a">						
 					
 						<div data-role="collapsibleset" data-theme="a" data-content-theme="a">
-							<c:forEach var="dstatGroup" items="${indicator.dstatValues}">
+							<c:forEach var="dstatGroup" items="${indicator.dstatLines}">
 								<div data-role="collapsible">
 									<h2>${dstatGroup.name}</h2>
 									<table class="ui-body-d ui-shadow table-stripe ui-responsive volart-table" id="table-custom-2" data-role="table" data-mode="columntoggle" data-column-popup-theme="a" data-column-btn-text="Columns" data-column-btn-theme="b">
@@ -59,16 +60,16 @@
 											</tr>
 										</thead>
 										<tbody>           
-											<tr>	
-												<c:forEach var="line" items="${dstatGroup.lines}">
+											<c:forEach var="line" items="${dstatGroup.lines}">
+												<tr>	
 													<th>${line.underlying}</th>
 													<th><canvas id="${line.id}" width="150px" height="15px"></canvas></th>
-													<th>${line.downDStat}</th>
-													<th>${line.upDStat}</th>
+													<th>${line.downSpot} (${line.downDStat})</th>
+													<th>${line.upSpot} (${line.upDStat})</th>
 													<th>${line.todayValue}</th>
 													<th>${line.yesterdayValue}</th>
-												</c:forEach>									
-											</tr>
+												</tr>
+											</c:forEach>									
 										</tbody>     
 									</table>
 								</div>
@@ -96,13 +97,13 @@
 									</tr>
 								</thead>
 								<tbody>    
-									<c:forEach var="col" items="${indicator.betaTargetValues}">
+									<c:forEach var="col" items="${indicator.betaTargetLines}">
 										<tr>										
-											<th>${col.instrument}</th>
-											<th>${col.todayValue}</th>
-											<th>${col.yesterdayValue}</th>
-											<th>${col.lastMonthDate}</th>
-											<th>${col.lastMonthValue}</th>
+											<th>${col.underlying}</th>
+											<th><fmt:formatNumber minFractionDigits="2" value="${col.todayValue}" type="percent"/></th>
+											<th><fmt:formatNumber minFractionDigits="2" value="${col.yesterdayValue}" type="percent"/></th>
+											<th><fmt:formatDate value="${col.lastMonthDate}" pattern="dd/MM/yyyy"/></th>
+											<th><fmt:formatNumber minFractionDigits="2" value="${col.lastMonthValue}" type="percent"/></th>
 										</tr>
 									</c:forEach>
 								</tbody>  
@@ -130,13 +131,13 @@
 									</tr>
 								</thead>
 								<tbody>    
-									<c:forEach var="col" items="${indicator.relativeValues}">
+									<c:forEach var="col" items="${indicator.relativeValueLines}">
 										<tr>										
-											<th>${col.instrument}</th>
-											<th>${col.todayValue}</th>
-											<th>${col.yesterdayValue}</th>
-											<th>${col.lastMonthDate}</th>
-											<th>${col.lastMonthValue}</th>
+											<th>${col.underlying}</th>
+											<th><fmt:formatNumber minFractionDigits="2" value="${col.todayValue}" type="percent"/></th>
+											<th><fmt:formatNumber minFractionDigits="2" value="${col.yesterdayValue}" type="percent"/></th>
+											<th><fmt:formatDate value="${col.lastMonthDate}" pattern="dd/MM/yyyy"/></th>
+											<th><fmt:formatNumber minFractionDigits="2" value="${col.lastMonthValue}" type="percent"/></th>
 										</tr>
 									</c:forEach>
 								</tbody>  
