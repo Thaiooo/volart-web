@@ -1,7 +1,11 @@
 package com.ubp.volart.vo.indicator;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+
+import com.ubp.volart.model.indicator.BetaTarget;
+import com.ubp.volart.model.indicator.RelativeValue;
 
 public class IndicatorVO implements Serializable {
 
@@ -10,34 +14,10 @@ public class IndicatorVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String fundName;
-    private String date;
-    private List<DStatGroupVO> dstatValues;
-    private List<RelativeValueLineVO> relativeValues;
-    private List<BetatTargetLineVO> betaTargetValues;
-
-    public List<DStatGroupVO> getDstatValues() {
-	return dstatValues;
-    }
-
-    public void setDstatValues(List<DStatGroupVO> dstatValues) {
-	this.dstatValues = dstatValues;
-    }
-
-    public List<RelativeValueLineVO> getRelativeValues() {
-	return relativeValues;
-    }
-
-    public void setRelativeValues(List<RelativeValueLineVO> relativeValues) {
-	this.relativeValues = relativeValues;
-    }
-
-    public List<BetatTargetLineVO> getBetaTargetValues() {
-	return betaTargetValues;
-    }
-
-    public void setBetaTargetValues(List<BetatTargetLineVO> betaTargetValues) {
-	this.betaTargetValues = betaTargetValues;
-    }
+    private Date date;
+    private List<DStatGroupVO> dstatLines;
+    private List<RelativeValue> relativeValueLines;
+    private List<BetaTarget> betaTargetLines;
 
     public String getFundName() {
 	return fundName;
@@ -47,12 +27,36 @@ public class IndicatorVO implements Serializable {
 	this.fundName = fundName;
     }
 
-    public String getDate() {
+    public Date getDate() {
 	return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
 	this.date = date;
+    }
+
+    public List<DStatGroupVO> getDstatLines() {
+	return dstatLines;
+    }
+
+    public void setDstatLines(List<DStatGroupVO> dstatLines) {
+	this.dstatLines = dstatLines;
+    }
+
+    public List<RelativeValue> getRelativeValueLines() {
+	return relativeValueLines;
+    }
+
+    public void setRelativeValueLines(List<RelativeValue> relativeValueLines) {
+	this.relativeValueLines = relativeValueLines;
+    }
+
+    public List<BetaTarget> getBetaTargetLines() {
+	return betaTargetLines;
+    }
+
+    public void setBetaTargetLines(List<BetaTarget> betaTargetLines) {
+	this.betaTargetLines = betaTargetLines;
     }
 
 }
