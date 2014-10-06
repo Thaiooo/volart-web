@@ -2,6 +2,7 @@ package com.ubp.volart.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -50,7 +51,10 @@ public class PortfolioController {
     public String portfolio(@PathVariable String ptfName, Model model) {
 	logger.info("Portfolio: " + ptfName);
 
-	Date d = new Date();
+	Calendar cal = Calendar.getInstance();
+	cal.add(Calendar.DATE, -1);
+	cal.getTime();
+	Date d = cal.getTime();
 	loadPortfolio(model, ptfName, d);
 
 	return "portfolio";
