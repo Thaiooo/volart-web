@@ -3,10 +3,12 @@ package com.ubp.volart.vo.indicator;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ubp.volart.model.indicator.DStat;
+
 public class DStatGroupVO {
 
     private String name;
-    private List<DStatLineVO> lines = new ArrayList<DStatLineVO>();
+    private List<DStat> lines = new ArrayList<DStat>();
 
     public String getName() {
 	return name;
@@ -16,11 +18,11 @@ public class DStatGroupVO {
 	this.name = name;
     }
 
-    public List<DStatLineVO> getLines() {
+    public List<DStat> getLines() {
 	return lines;
     }
 
-    public void setLines(List<DStatLineVO> lines) {
+    public void setLines(List<DStat> lines) {
 	this.lines = lines;
     }
 
