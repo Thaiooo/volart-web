@@ -49,7 +49,7 @@
 		<security:intercept-url pattern="/risk/*/*" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/indicator" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/indicator/*" access="hasRole('ADMIN')" />
-		<security:form-login login-page="/login" default-target-url="/home" authentication-failure-url="/loginError" />
+		<security:form-login login-page="/login" default-target-url="/home" always-use-default-target="true" authentication-failure-url="/loginError" />
 	</security:http>
 
 	<security:authentication-manager>
