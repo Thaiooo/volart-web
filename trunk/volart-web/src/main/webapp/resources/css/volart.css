@@ -1,3 +1,9 @@
+.th-groups th {
+    text-align: center;
+    background-color: rgba(0,0,0,.1);
+    border-right: 1px solid #fff;
+}
+
 .warning-message{
 	color: red;
 }
